@@ -1,3 +1,6 @@
+//Import javascript classes
+import { Todo } from './todo.js';
+
 //HTML input type=checkbox property
 const CHECK = "checked";
 
@@ -13,29 +16,19 @@ const datetime = document.querySelector('input[name="new-task-deadline-datetime"
 //Variables
 let todosList = [];
 let id = 0;
+
 let data = sessionStorage.getItem("todosList");
 
-//Use this to update list to session storage
-sessionStorage.setItem("todosList", JSON.stringify(todosList));
+// load todo items from session storage, if there are any
+if(data){
+    getTodosFromSessionStorage(data);
+}
 
-// load tasks from session storage, if there are any
-loadTodosFromSessionStorage(data);
 
 //Listener for new task button "Add"
 addBtn.addEventListener('click', function(){
     addNewTask(description.value, datetime.value);
 })
-
-//Class for To-Do task objects
-class Todo{
-    constructor(description, deadline, id, isCompleted, isDeleted){
-        this.description = description;
-        this.deadline = deadline;
-        this.id = id;
-        this.isCompleted = isCompleted;
-        this.isDeleted = isDeleted;
-    }
-}
 
 //Function to process user click on button "Add"
 function addNewTask(text, deadline) {
@@ -46,10 +39,11 @@ function addNewTask(text, deadline) {
     }
 
     let task = new Todo(text, deadline, id, false, false);
-    id++;
-    todosList.push(task);
-    sessionStorage.setItem("todosList", JSON.stringify(todosList));
+
     addToDo(task);
+    saveTask(task);
+
+    id++;
     
     description.value = "";
     datetime.value = "";
@@ -70,7 +64,7 @@ function checkFieldIsEmpty(text){
 }
 
 /**
- * Appear new task in HTML
+ * Add item to UI
  * @param {Todo} task Todo class object
  */
 function addToDo(task){
@@ -85,7 +79,7 @@ function addToDo(task){
                     <li>
                         <input ${COMPLETED} value job="complete" type="checkbox" id="${task.id}" >
                         <p class="task-delete-btn" job="delete" id="${task.id}">X</p>
-                        <p class="task-remainingtime-text job="aha">${calculateRemainingTime(task.deadline)}</p>
+                        <p class="task-remainingtime-text">${calculateRemainingTime(task.deadline)}</p>
                         <p class="task-text ${LINE}">${task.description}</p>
                     </li>
                 `;
@@ -95,23 +89,47 @@ function addToDo(task){
     list.insertAdjacentHTML(position, text);
 }
 
-function loadTodosFromSessionStorage(data){
-    let array, id;
-    
-    console.log(sessionStorage.getItem("todosList"));
-    if(data){
-        array = JSON.parse(data);
-        id = array.length;
-        loadToDo(array);
-    } else {
-        array = [];
-        id = 0;
-    }
+/**
+ * Save each array item using saveTask() function
+ * @param {Todo[]} array List of todo object  
+ */
+function saveTaskArray(array){
+    array.forEach((item) => {
+        saveTask(item);
+    })
 }
 
-function loadToDo(array) {
-    array.forEach(element => {
-        addToDo(element.description, element.deadline, element.id, element.isCompleted, element.isDeleted);
+/**
+ * Add item to todosList and save this list to sessionStorage
+ * @param {Todo} task Todo object
+ */
+function saveTask(task){
+    todosList.push(task);
+    sessionStorage.setItem("todosList", JSON.stringify(todosList));
+}
+
+/**
+ * 
+ * @param {JSON} data JSON from SessionStorage, stringified todosList array 
+ */
+function getTodosFromSessionStorage(data){
+    let array;
+
+    array = JSON.parse(data);
+    saveTaskArray(array);
+    loadTodos(array);
+
+    id = todosList.length; //Set id to imported data, to prevent overriding data
+}
+
+/**
+ * Show items to UI
+ * @param {Todo[]} array List of todo objects  
+ */
+function loadTodos(array) {
+    console.log(array);
+    array.forEach((element) => {
+        addToDo(element);
     });
 }
 
@@ -144,20 +162,32 @@ function calculateRemainingTime(datetime){
     + minutes + "m ";
 }
 
+/**
+ * Delete list item
+ * @param {DOMElement} element Clicked element (delete button)  
+ */
 function deleteToDo(element){
     element.parentNode.parentNode.removeChild(element.parentNode);
 
     todosList[element.id].isDeleted = true;
 }
 
+/**
+ * Mark list item as completed
+ * @param {DOMElement} element Clicked element (complete checkbox)
+ */
 function completeToDo(element){
     element.parentNode.querySelector(".task-text").classList.toggle(CROSSED);
 
     todosList[element.id].isCompleted = todosList[element.id].isCompleted ? false : true;
 }
 
-list.addEventListener("click", function(event){
+/**
+ * Select dynamically created list's element
+ */
+list.addEventListener("click", (event) => {
     const element = event.target;
+    let elementJob;
 
     if(element.hasAttribute("job")){
         elementJob = element.attributes.job.value; 
