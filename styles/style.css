@@ -1,0 +1,104 @@
+*
+{
+    margin: 0;
+    padding: 0;
+}
+
+body
+{
+    background-color: rgb(250, 246, 232);
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    max-width: 800px;
+    margin: auto;
+}
+
+.container {
+    position: relative;
+}
+
+.header {
+    display: block;
+    background-color: bisque;
+    width: 100%;
+    text-align: center;
+}
+
+.todo-add-item-form {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.todo-list {
+    position: relative;
+    width: 100%;
+    min-height: 60px;
+    height: auto;
+    background-color: #ebecf0;
+
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+.todo-list h2 {
+    text-align: center;
+    font-weight: normal;
+    font-size:large;
+}
+
+.todo-list ul li {
+    position: relative;
+    list-style-type: none;
+    background-color: thistle;
+    min-height: 50px;
+    height: auto;
+    margin-bottom: 4px;
+
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+.todo-list ul li input {
+    position: absolute;
+    top: 20px;
+    left: 15px;
+    transform: scale(1.5);
+}
+
+.task-text {
+    position: relative;
+    top: 10px;
+    width: 50%;
+    height: auto;
+    left: 60px;
+    padding-bottom: 20px;
+    overflow:hidden;
+}
+
+.task-delete-btn {
+    position: absolute;
+    font-size: large;
+    top: 13px;
+    right: 15px;
+    font-weight: bold;
+    color:tomato;
+    cursor: pointer;
+    z-index: 1;
+}
+
+.task-delete-btn:hover {
+    font-size: larger;
+}
+
+.task-remainingtime-text {
+    position: absolute;
+    top: 15px;
+    right: 50px;
+}
+
+.crossed {
+    text-decoration: line-through;
+}

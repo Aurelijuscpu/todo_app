@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles/style.css">
+    <title>To-Do List</title>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>TO-DO LIST</h1>
+        </div>
+
+        <div class="todo-add-item-form">
+            <h2>ADD NEW TASK</h2>
+            <input name="new-task-description-text" type="text" maxlength="159" placeholder="Task description">
+            <input name="new-task-deadline-datetime" type="datetime-local"> 
+            <button id="new-task-btn-add">Add</button>
+        </div>
+
+        <div class="todo-list"> 
+            <h2>AVAILABLE TASKS</h2>
+            <ul id="list">
+               <!-- <li>
+                   <input id="task-completed-checkbox" type="checkbox">
+                    <p class="task-delete-btn">X</p>
+                    <p class="task-text">Lorem</p>
+                </li> -->
+            </ul> 
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
