@@ -2,7 +2,7 @@
 import { Todo } from './todo.js';
 
 //Strings
-const EXPIRED = "E";
+const EXPIRED = "EXPIRED";
 const NO_DEADLINE = "";
 
 //HTML input type=checkbox attribute

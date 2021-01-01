@@ -15,37 +15,72 @@ body
 .container {
     position: relative;
 }
+/*========HEADER========*/
 
 .header {
     display: block;
     background-color: bisque;
     width: 100%;
     text-align: center;
+
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
+
+.container .header h1 {
+    font-size: large;
+    padding: 10px;
+}
+
+/*-----HEADER END------*/
+
+/*========ADD NEW TASK FORM======*/
+
+.container .todo-add-item-form h2 {
+    font-size: large;
+    padding: 10px 0px;
 }
 
 .todo-add-item-form {
     text-align: center;
-    margin-bottom: 10px;
+    padding-bottom: 10px;
+    background-color: rgb(247, 246, 232);
 }
+
+.todo-list h2 {
+    text-align: center;
+    font-weight: normal;
+    font-size: large;
+}
+
+#new-task-btn-add {
+    padding: 2px 8px;
+}
+
+.container .todo-add-item-form input[type="text"] {
+    font-size: 14px;
+    padding: 1.5px;
+}
+
+/*-------ADD NEW TASK FORM-----*/
+
+/*=========TODO LIST HEADER=======*/
 
 .todo-list {
     position: relative;
     width: 100%;
     min-height: 60px;
     height: auto;
+    padding-top: 10px;
     background-color: #ebecf0;
 
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
     border-bottom-left-radius: 20px;
     border-bottom-right-radius: 20px;
 }
 
-.todo-list h2 {
-    text-align: center;
-    font-weight: normal;
-    font-size:large;
-}
+/*-------TODO LIST HEADER END----*/
+
+/*=========TODO ITEM========*/
 
 .todo-list ul li {
     position: relative;
@@ -70,7 +105,7 @@ body
 
 .task-text {
     position: relative;
-    top: 10px;
+    top: 15px;
     width: 50%;
     height: auto;
     left: 60px;
@@ -103,6 +138,10 @@ body
     text-decoration: line-through;
 }
 
+/*---------TODO ITEM END-------*/
+
+
+/*==========POPUP DELETE FORM========*/
 .popup-confirm-form {
     position: fixed;
     top: 40%;
@@ -168,6 +207,8 @@ body
     transform: scale(1.5);
     cursor: pointer;
 }
+
+/*---------POPUP DELETE FORM END----------*/
 
 #overlay {
     position: fixed;
